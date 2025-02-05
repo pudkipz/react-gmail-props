@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import Email from './Email'
 
-function Emails({filteredEmails, setEmails, openedEmail, setOpenedEmail, currentView, setCurrentView}) {
+function Emails({filteredEmails, setEmails, setOpenedEmail, setCurrentView}) {
   const toggleStar = targetEmail => {
     const updatedEmails = emails =>
       emails.map(email =>
@@ -21,10 +21,8 @@ function Emails({filteredEmails, setEmails, openedEmail, setOpenedEmail, current
   }
 
   const openEmail = targetEmail => {
-    openedEmail = targetEmail
-    setOpenedEmail(openedEmail)
-    currentView = 'email'
-    setCurrentView(currentView)
+    setOpenedEmail(targetEmail)
+    setCurrentView('email')
   }
 
   return (<>
@@ -41,4 +39,6 @@ export default Emails
 Emails.propTypes = {
   filteredEmails: PropTypes.array,
   setEmails: PropTypes.func,
+  setOpenedEmail: PropTypes.func,
+  setCurrentView: PropTypes.func,
 }

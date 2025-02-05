@@ -27,6 +27,10 @@ function App() {
   if (currentTab === 'starred')
     filteredEmails = getStarredEmails(filteredEmails)
 
+  const openInbox = () => {
+    setCurrentView('inbox')
+  }
+
   return (
     <div className="app">
       <header className="header">
@@ -38,6 +42,7 @@ function App() {
           <img
             src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r2.png"
             alt="gmail logo"
+            onClick={() => openInbox()}
           />
         </div>
 
