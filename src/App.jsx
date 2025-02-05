@@ -11,16 +11,28 @@ const getReadEmails = emails => emails.filter(email => !email.read)
 
 const getStarredEmails = emails => emails.filter(email => email.starred)
 
+const getSearchEmails = (searchInput, emails) => {
+  const fMail = emails.filter(email => email.title.toLowerCase().includes(searchInput.toLowerCase()))
+  return fMail
+}
+
+
 function App() {
   const [emails, setEmails] = useState(initialEmails)
   const [hideRead, setHideRead] = useState(false)
   const [currentTab, setCurrentTab] = useState('inbox')
   const [currentView, setCurrentView] = useState('inbox')  // can be: inbox, email
   const [openedEmail, setOpenedEmail] = useState(0)  // default value?
+  const [searchInput, setSearchInput] = useState('')
+
   const unreadEmails = emails.filter(email => !email.read)
   const starredEmails = emails.filter(email => email.starred)
 
   let filteredEmails = emails
+
+  if (searchInput != '') {
+    filteredEmails = getSearchEmails(searchInput, filteredEmails)
+  }
 
   if (hideRead) filteredEmails = getReadEmails(filteredEmails)
 
@@ -42,12 +54,16 @@ function App() {
           <img
             src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r2.png"
             alt="gmail logo"
-            onClick={() => openInbox()}
+            onClick={openInbox}
           />
         </div>
-
         <div className="search">
-          <input className="search-bar" placeholder="Search mail" />
+          <input
+          className="search-bar"
+          placeholder="Search mail"
+          value={searchInput}
+          onChange={event => setSearchInput(event.target.value)}
+          />
         </div>
       </header>
       <nav className="left-menu">
