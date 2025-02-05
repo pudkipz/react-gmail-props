@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import initialEmails from './data/emails'
 
-import Email from './components/Email'
+import Emails from './components/Emails'
 
 import './styles/App.css'
 
@@ -17,24 +17,6 @@ function App() {
 
   const unreadEmails = emails.filter(email => !email.read)
   const starredEmails = emails.filter(email => email.starred)
-
-  const toggleStar = targetEmail => {
-    const updatedEmails = emails =>
-      emails.map(email =>
-        email.id === targetEmail.id
-          ? { ...email, starred: !email.starred }
-          : email
-      )
-    setEmails(updatedEmails)
-  }
-
-  const toggleRead = targetEmail => {
-    const updatedEmails = emails =>
-      emails.map(email =>
-        email.id === targetEmail.id ? { ...email, read: !email.read } : email
-      )
-    setEmails(updatedEmails)
-  }
 
   let filteredEmails = emails
 
@@ -89,13 +71,7 @@ function App() {
           </li>
         </ul>
       </nav>
-      <main className="emails">
-        <ul>
-          {filteredEmails.map((email, index) => (
-            <Email key={index} email={email} toggleStar={toggleStar} toggleRead={toggleRead}/>
-          ))}
-        </ul>
-      </main>
+      <Emails filteredEmails={filteredEmails} setEmails={setEmails}/>
     </div>
   )
 }
