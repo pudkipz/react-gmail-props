@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types'
 
-function Email({index, email, toggleStar, toggleRead}) {
+function Email({index, email, toggleStar, toggleRead, openEmail}) {
   return (<>
     <li
       key={index}
       className={`email ${email.read ? 'read' : 'unread'}`}
+      onClick={() => openEmail(email)}
     >
       <div className="select">
         <input
@@ -36,4 +37,5 @@ Email.propTypes = {
   email: PropTypes.object,
   toggleStar: PropTypes.func,
   toggleRead: PropTypes.func,
+  openEmail: PropTypes.func,
 }

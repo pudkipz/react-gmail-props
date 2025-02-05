@@ -3,6 +3,7 @@ import { useState } from 'react'
 import initialEmails from './data/emails'
 
 import Emails from './components/Emails'
+import EmailView from './components/EmailView'
 
 import './styles/App.css'
 
@@ -14,7 +15,8 @@ function App() {
   const [emails, setEmails] = useState(initialEmails)
   const [hideRead, setHideRead] = useState(false)
   const [currentTab, setCurrentTab] = useState('inbox')
-
+  const [currentView, setCurrentView] = useState('inbox')  // can be: inbox, email
+  const [openedEmail, setOpenedEmail] = useState(0)  // default value?
   const unreadEmails = emails.filter(email => !email.read)
   const starredEmails = emails.filter(email => email.starred)
 
@@ -71,7 +73,13 @@ function App() {
           </li>
         </ul>
       </nav>
-      <Emails filteredEmails={filteredEmails} setEmails={setEmails}/>
+      <main>
+        {currentView == 'inbox' ? (
+        <Emails filteredEmails={filteredEmails} setEmails={setEmails} openedEmail={openedEmail} setOpenedEmail={setOpenedEmail} currentView={currentView} setCurrentView={setCurrentView}/>
+        ) : (
+        <EmailView email={openedEmail}/>
+        )}
+      </main>
     </div>
   )
 }
